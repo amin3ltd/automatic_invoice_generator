@@ -1,42 +1,46 @@
 ---
 
-# 📄 Automatic Invoice Generator (Python)
+# 📄 Automatic Invoice Generator (Flask + Python)
 
-A Python program that **automatically generates invoices** in PDF format and sends them via email to the respective recipients.
-Simply provide the invoice details as input, and the program handles the rest.
+A **web-based invoice generator** built with Python and Flask that renders an invoice from an HTML template and **generates a PDF invoice** using `xhtml2pdf`.
+
+Users can view the invoice in the browser and download it as a PDF.
 
 ---
 
 ## 📌 Features
 
-* Automatically generate PDF invoices
-* Input invoice details (recipient, items, prices, taxes, etc.)
-* Send invoices via email to clients
-* Customizable invoice templates
-* Supports multiple recipients
-* Lightweight and easy to configure
+* Generate invoices dynamically using Python
+* Render invoices using HTML + Jinja2
+* Download invoices as PDF
+* Simple and lightweight
+* No external system dependencies
+* Windows-friendly
 
 ---
 
 ## ⚙️ Tech Stack
 
 * **Python 3.9+**
-* **ReportLab** – Generate PDF invoices
-* **SMTP / smtplib** – Send emails
-* **Jinja2** (optional) – Templating for invoice design
-* **CSV / JSON** – Input invoice data
+* **Flask** – Web framework
+* **Jinja2** – HTML templating
+* **xhtml2pdf** – PDF generation (pure Python)
+* **HTML / CSS** – Invoice design
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-invoice-generator/
+automatic_invoice_generator/
 │
-├── generate_invoice.py    # Main program to create and email invoices
-├── templates/             # Folder for PDF or HTML templates
-├── data/                  # Optional folder for CSV / JSON invoice data
-├── requirements.txt       # Dependencies
+├── app.py                 # Flask application
+├── templates/
+│   └── invoice.html       # Invoice HTML template
+├── static/
+│   └── logo.png           # Optional company logo
+├── env/                   # Virtual environment
+├── requirements.txt       # Python dependencies
 └── README.md
 ```
 
@@ -48,22 +52,27 @@ invoice-generator/
 
 ```bash
 git clone https://github.com/amin3ltd/invoice-generator.git
-cd invoice-generator
+cd automatic_invoice_generator
 ```
 
 ---
 
-### 2️⃣ Create a virtual environment (recommended)
+### 2️⃣ Create a virtual environment 
 
 ```bash
 python -m venv env
-source env/bin/activate   # Linux / macOS
 env\Scripts\activate      # Windows
 ```
 
 ---
 
 ### 3️⃣ Install dependencies
+
+```bash
+pip install flask xhtml2pdf
+```
+
+(or)
 
 ```bash
 pip install -r requirements.txt
@@ -73,54 +82,65 @@ pip install -r requirements.txt
 
 ## 🚀 Usage
 
-1. Open `generate_invoice.py`
-2. Provide invoice details:
-
-* Recipient Name
-* Email Address
-* Items & Prices
-* Taxes (if applicable)
-* Invoice Number / Date
-
-3. Run the program:
+### 1️⃣ Start the Flask app
 
 ```bash
-python generate_invoice.py
+python app.py
 ```
-
-4. PDF invoice will be generated and **emailed automatically**.
 
 ---
 
-## 🔍 Workflow Overview
+### 2️⃣ Open in browser
+
+```
+http://127.0.0.1:5000/
+```
+
+✔ View invoice in HTML format
+
+---
+
+### 3️⃣ Download PDF invoice
+
+```
+http://127.0.0.1:5000/download
+```
+
+✔ Invoice is generated and returned as a PDF
+
+---
+
+## 🔍 How It Works
 
 ```mermaid
 flowchart TD
-    A[Start] --> B[Input Invoice Details]
-    B --> C[Generate PDF Invoice]
-    C --> D[Send Invoice via Email]
-    D --> E[Log Success / Failure]
-    E --> F[End]
+    A[Start Flask App] --> B[Generate Invoice Data]
+    B --> C[Render invoice.html with Jinja2]
+    C --> D[Convert HTML to PDF using xhtml2pdf]
+    D --> E[Return PDF to Browser]
 ```
 
 ---
 
 ## ⚠️ Notes & Limitations
 
-* Ensure your **email credentials** are correct (SMTP setup required)
-* PDF template customization is optional but recommended
-* The program does **not validate email addresses** automatically
-* This is for **educational and business purposes only**
+* `xhtml2pdf` supports **basic CSS only**
+
+  * Avoid flexbox, grid, media queries
+* Layout should be **table-based**
+* Fonts must be explicitly configured for Unicode
+* Logo paths may require adjustment for PDF rendering
 
 ---
 
 ## 📈 Future Improvements
 
+* Add tax & discount calculation
+* Save invoices to disk
+* Add invoice numbering system
 * Support multiple invoice templates
-* Automatically calculate taxes and discounts
-* Attach invoices to bulk emails
-* Store invoice history in a database
-* Integrate with cloud services (Gmail API, AWS SES)
+* Email invoices automatically
+* Add Amharic / multilingual support
 
 ---
 
@@ -131,4 +151,12 @@ GitHub: [https://github.com/amin3ltd](https://github.com/amin3ltd)
 
 ---
 
+## ✅ Status
+
+✔ Stable
+✔ Windows-compatible
+✔ No system libraries
+✔ No external executables
+
+---
 
